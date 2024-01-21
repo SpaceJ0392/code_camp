@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>hello world</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        div {
+            width: 80px;
+            height: 80px;
+            border: 1px solid red;
+            padding: 10px;
+        }
+
+        .parentbox{
+            width: 500px;
+            height: 500px;
+            border: 1px solid rebeccapurple;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* #contentbox{
+            box-sizing: content-box;
+            // 사이즈를 증감 시키는 기준을 content 기준으로 한다. 
+            //즉, 사이즈를 키우면 padding 커지며, border가 멀어짐
+
+            //당연하게도, 사이즈을 증감시킬 때, 그림의 사이즈 자체가 변화하는 content-box 방식이 안좋음. - 그러나 CSS에서 기본값
+            //그러므로 box-sizing을 border-box로 변경하고 사이징을 할 필요가 있음.
+        }*/
+
+        /* #borderbox{
+            box-sizing: border-box;   
+            //사이즈를 증감 시키는 기준을 border를 기준으로 한다. 
+            //즉, 사이즈를 키우면 padding이 커지며, content가 작아짐
+        } */
+    </style>
+</head>
+<body>
+    <!-- <div id="contentbox">박스 1 (content-box)</div>
+    <div>박스 2 (default)</div>
+    <div id="borderbox">박스 3 (border-box)</div> -->
+
+    <div class="parentbox">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+</body>
+</html>

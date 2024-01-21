@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>Hello World</title>
+    <link href="./02-signup.css" rel="stylesheet" /> <!-- rel은 relationship-->
+</head>
+
+<body>
+    <div class="signup_background">
+        <div class="signup_content">
+            <h1>회원가입을 위해<br> 정보를 입력해주세요</h1>
+            <div>
+                * 이메일<br>
+                <input class="text_line" type="email" placeholder="이메일을 입력해주세요" /><br><br>
+                <!--input의 default type는 text이다. -->
+            </div>
+            <div>
+                * 이름<br>
+                <input class="text_line" type="text" placeholder="이름을 입력해주세요" /> <br><br>
+            </div>
+            <div>
+                * 비밀번호<br>
+                <input class="text_line" type="password" placeholder="비밀번호를 입력해주세요" /> <br><br>
+            </div>
+            <div>
+                * 비밀번호 확인<br>
+                <input class="text_line" type="password" placeholder="비밀번호를 다시 입력해주세요." /> <br><br>
+            </div>
+
+            <!-- <select>
+                <option disabled="true" selected="true">지역을 선택하세요</option>
+                <option>서울</option>
+                <option>경기</option>
+                <option>인천</option>
+            </select> <br><br>-->
+            <!--selected : 선택된 상태로 만듬, disabled : 선택 불가능하게 함-->
+
+            <div class="radio_box">
+                <div class="radio_content">
+                    <input type="radio" name="gender"><span class="gender_text">여성</span>
+                </div>
+                <div class="radio_content">
+                    <!--name으로 하나로 그룹핑-->
+                    <input type="radio" name="gender"><span class="gender_text">남성</span>
+                </div>
+            </div>
+
+            <div class="checkbox_content">
+                <input id ="checkbox" type="checkbox"><label class="checkbox_text" for="checkbox">이용약관 개인 정보 수집 및 이용, 마케팅 활용 선택에 모두 동의합니다.</label>
+            </div>
+            <hr>
+
+            <button><span id="button_text">가입하기</span></button>
+            <!--버튼은 이전에는 <input type="button" value="가입하기"> 와 같이 사용 가능했다. 그러나, 지금은 버튼에 디자인이 많이 붙어서 따로 분리한다.-->
+            <!--input 태그에 CSS를 붙이기에는 어려움 (있다는 정도만 알아라)-->
+        </div>
+    </div>
+
+</html>
