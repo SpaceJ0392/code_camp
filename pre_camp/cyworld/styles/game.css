@@ -116,9 +116,7 @@ html, body {
     justify-content: space-around;
     align-items: center;
     padding: 2px;
-}
 
-.lotto__num{
     font-size: 10px;
     font-weight: 700;
 }

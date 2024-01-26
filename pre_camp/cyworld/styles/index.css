@@ -143,3 +143,28 @@ iframe {
     height: 100%;
     border: none;
 }
+
+.navigation {
+    width: 62px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    position: absolute;
+    left: 774px;
+    top: 110px;
+}
+
+.navigation__item {
+    width: 60px;
+    height: 30px;
+    background-color: #298eb5;
+    border: 1px solid black;
+    color: white;
+    border-radius: 0px 10px 10px 0px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 30px; /*line-height는 글씨의 세로 위치 조절 (글씨가 쓰여 있는 줄의 크기를 조정한다고 보면 된다.)*/
+    cursor: pointer;
+}

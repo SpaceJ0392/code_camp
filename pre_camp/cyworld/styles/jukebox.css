@@ -1,0 +1,127 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px;
+}
+
+.wrapper__contents {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper__title {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.title {
+    color: #55b2e4;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 8px;
+    padding-left: 5px;
+    padding-bottom: 1.5px;
+}
+
+.divide__line {
+    width: 100%;
+    border-top: 1px solid gray;
+    margin-top: 6px;
+
+}
+
+.album__wrapper__items {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    padding: 20px;
+}
+
+.album__script {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.album__title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #0f465e;
+}
+
+.album__artist {
+    font-size: 10px;
+    font-weight: 700;
+    color: #999999;
+}
+
+.album__table {
+    width: 100%;
+
+    font-size: 10px;
+    font-weight: 400;
+    padding-top: 10px;
+
+    border-collapse: collapse;
+}
+
+table thead {
+    width: 100%;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+    background-color: #eeeeee;
+
+    font-weight: 700;
+    color: #999999;
+}
+
+table tbody td {
+    border-bottom: 1px dotted #999999;
+}
+
+th, td {
+    padding: 4px 0px 4px 0px;
+}
+
+th:nth-child(3), th:nth-child(4){
+    text-align: left;
+    vertical-align: middle;
+}
+
+th:nth-child(1) input[type=checkbox], td:nth-child(1) input[type=checkbox]{
+    vertical-align: -2px;
+}
+
+td:nth-child(1), td:nth-child(2) {
+    text-align: center;
+}
+
+td:nth-child(3), td:nth-child(4){
+    color: #0f465e;
+}
