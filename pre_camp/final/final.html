@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>Final</title>
+    <link rel="stylesheet" href="./final.css">
+    <script src="./final.js"></script>
+</head>
+
+<body>
+    <div class="background">
+        <h1>코드캠프 회원가입</h1>
+
+        <input type="email" placeholder="이메일을 입력해 주세요.">
+        <input type="text" placeholder="이름을 입력해 주세요.">
+        <input type="password" placeholder="비밀번호를 입력해 주세요.">
+        <input type="password" placeholder="비밀번호를 다시 입력해 주세요.">
+
+        <div class="phone_num">
+            <input type="text" id="num1" class="num_box"> <span class="hyphen"></span> <input type="text" id="num2" class="num_box"> <span
+                class="hyphen"></span> <input type="text" id="num3" class="num_box">
+        </div>
+
+        <div class="auth">
+            <span id="auth_num">000000</span> <button id="auth_btn">인증번호 전송</button>
+        </div>
+        <div class="timer">
+            <span id="time">3:00</span> <button id="auth_fin_btn">인증 완료</button>
+        </div>
+
+        <select>
+            <option disabled="true" selected="true"><span id="default_selected_text">지역을 선택하세요</span></option>
+            <option>서울</option>
+            <option>대전</option>
+            <option>대구</option>
+        </select>
+
+        <div class="radio_group">
+            <input type="radio"name="gender"> <span class="radio_content">여성</span>
+            <pre>   </pre>
+            <input type="radio"name="gender"> <span class="radio_content">남성</span>
+        </div>
+
+        <div class="divide_line"></div>
+
+        <button id="submit_btn">가입하기</button>
+    </div>
+</body>
+
+</html>
