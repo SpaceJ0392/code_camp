@@ -11,39 +11,48 @@
     <div class="background">
         <h1>코드캠프 회원가입</h1>
 
-        <input type="email" placeholder="이메일을 입력해 주세요.">
-        <input type="text" placeholder="이름을 입력해 주세요.">
-        <input type="password" placeholder="비밀번호를 입력해 주세요.">
-        <input type="password" placeholder="비밀번호를 다시 입력해 주세요.">
+        <input id="email" type="email" placeholder="이메일을 입력해 주세요.">
+        <div class="error" id="email_error"></div>
+        <input id="name" type="text" placeholder="이름을 입력해 주세요.">
+        <div class="error" id="name_error"></div>
+        <input id="password" type="password" placeholder="비밀번호를 입력해 주세요.">
+        <div class="error" id="password_error"></div>
+        <input id="password_checker" type="password" placeholder="비밀번호를 다시 입력해 주세요.">
+        <div class="error" id="password_checker_error"></div>
 
         <div class="phone_num">
-            <input type="text" id="num1" class="num_box"> <span class="hyphen"></span> <input type="text" id="num2" class="num_box"> <span
-                class="hyphen"></span> <input type="text" id="num3" class="num_box">
+            <input type="text" id="num1" class="num_box" maxlength="3" oninput="changeFocus(1, 3); enabledButton()"> 
+            <span class="hyphen"></span> 
+            <input type="text" id="num2" class="num_box" maxlength="4" oninput="changeFocus(2, 4); enabledButton()"> 
+            <span class="hyphen"></span> 
+            <input type="text" id="num3" class="num_box" maxlength="4" oninput="enabledButton()">
         </div>
 
         <div class="auth">
-            <span id="auth_num">000000</span> <button id="auth_btn">인증번호 전송</button>
+            <span id="auth_num">000000</span> <button id="auth_btn" onclick="sendAuthNum(); timer()" disabled>인증번호 전송</button>
         </div>
         <div class="timer">
-            <span id="time">3:00</span> <button id="auth_fin_btn">인증 완료</button>
+            <span id="time">3:00</span> <button id="auth_fin_btn" onclick="auth()" disabled>인증 확인</button>
         </div>
 
-        <select>
+        <select id="location">
             <option disabled="true" selected="true"><span id="default_selected_text">지역을 선택하세요</span></option>
             <option>서울</option>
-            <option>대전</option>
-            <option>대구</option>
+            <option>경기</option>
+            <option>인천</option>
         </select>
+        <div class="error" id="location_error"></div>
 
         <div class="radio_group">
-            <input type="radio"name="gender"> <span class="radio_content">여성</span>
+            <input type="radio"name="gender" id="gender_man"> <span class="radio_content">여성</span>
             <pre>   </pre>
-            <input type="radio"name="gender"> <span class="radio_content">남성</span>
+            <input type="radio"name="gender" id="gender_woman"> <span class="radio_content">남성</span>
         </div>
+        <div class="error" id="radio_error"></div>
 
         <div class="divide_line"></div>
 
-        <button id="submit_btn">가입하기</button>
+        <button id="submit_btn" onclick="validInfo()" disabled>가입하기</button>
     </div>
 </body>
 

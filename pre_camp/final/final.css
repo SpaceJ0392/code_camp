@@ -112,27 +112,37 @@ input[type=password]{
     width: 120px;
     height: 40px;
 
-    border: 1px solid #d2d2d2;
+    border: 1px solid gray;
     border-radius: 7px;
-
-    background-color: #ffffff;
 
     font-size: 14px;
     font-weight: 400;
+}
+
+#auth_btn:enabled {
+    border: 1px solid #d2d2d2;
+    background-color: #ffffff;
+    
     color: #0068ff;
+    cursor: pointer;
 }
 
 #auth_fin_btn {
     width: 120px;
     height: 40px;
     border-radius: 7px;
-
-    border: none;
-    background-color: #0068ff;
+    border: 1px solid gray;
 
     font-size: 14px;
     font-weight: 400;
+    
+}
+
+#auth_fin_btn:enabled {
+    border: none;
+    background-color: #0068ff;
     color: #ffffff;
+    cursor: pointer;
 }
 
 select {
@@ -188,13 +198,24 @@ input[type="radio"] {
 
 #submit_btn {
     height: 75px;
-
-    border: 1px solid #0068FF;
     border-radius: 10px;
-
-    background-color: #ffffff;
 
     font-size: 18px;
     font-weight: 400;
+}
+
+#submit_btn:enabled {
+    
+    border: 1px solid #0068FF;
+    background-color: #ffffff;
     color: #0068FF;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    font-weight: 400;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
