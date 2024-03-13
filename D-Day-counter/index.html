@@ -1,93 +1,68 @@
 <!DOCTYPE html>
 <html lang="ko">
+    <head>
+        <title>D-Day-counter</title>
+        <link rel="stylesheet" href="./style.css" />
+        <script src="./script.js" defer></script>
+        <!-- defer 속성이 있으면, html 태그 랜더링과, JS 컴파일링이 동시에 돼서 error X -->
+    </head>
 
-<head>
-    <title>D-Day-counter</title>
-    <link rel="stylesheet" href="./style.css">
-    <script>
-        //자바 스크립트 작성 가능
-        /*자바 스크립트는 브라우저를 동적으로 컨트롤하기 위해
-        탄생하였으므로 당연하게도, HTML과 연동하여, 내부에 작성 가능*/
-
-        /*HTML을 랜더링 하는 과정에 JS를 읽는 과정이 포함되어 았어 
-        스크립트 코드는 실행된다.*/
-
-        /** 함수 **/
-        const output = function () {
-            console.log("함수를 실행했어요");
-        };
-
-        const dateFormMaker = function () {
-            /** query Selector **/
-            const inputYear = document.querySelector("#target-year-input").value;
-            const inputMonth = document.querySelector("#target-month-input").value;
-            const inputDay = document.querySelector("#target-day-input").value;
-
-            //querySelector를 이용하면, 태그 또는 id, class 값을 기준으로 가져올 수 있다.
-            //document 객체는 해당 html 전체를 가리킨다.
-            //console.log(inputYear, inputMonth, inputDay);
-
-            //return inputYear + '-' + inputMonth + '-' + inputDay;
-            //혹은
-            return `${inputYear}-${inputMonth}-${inputDay}`; //템플릿 리터럴
-        };
-
-        /** 날짜 객체 Date **/
-        //js 에는 날짜 데이터를 형식에 맞추어 돌려주는 Date 객체가 존재한다.
-        const counterMaker = () => {
-            const nowDay = new Date(); //지역 표준시 기준 반환 (오전 9시 기준)
-            const targetDay = new Date(dateFormMaker()).setHours(0, 0, 0, 0); // 자정 기준으로 변환
-            const remaining = (targetDay - nowDay) / 1000; //밀리초 단위로 반환해서 1000으로 나눔
-
-            const remainingDate = Math.floor(remaining / 3600 / 24);
-            const remainingHours = Math.floor(remaining / 3600) % 24;
-            const remainingMin = Math.floor(remaining / 60) % 60;
-            const remainingSec = Math.floor(remaining % 60);
-            console.log(remainingDate, remainingHours, remainingMin, remainingSec);
-        };
-    </script>
-</head>
-
-<body>
-    <!-- <div id="div_id" class="div_class">안녕하세요</div>
+    <body>
+        <!-- <div id="div_id" class="div_class">안녕하세요</div>
     <div id="div_id는 중복 안됨." class="div_class 중복_가능 (공통된_특성_묶는다)">반갑습니다</div>
     // class 옵션에 공백이 존재하면, 다른 class로 본다.
     <span style="color: red;">잘 부탁드립니다.</span> //혹은 head에 작성가능
     <span>인사해요.</span> -->
 
-    <h1>D-Day</h1>
-    <div id="d-day-container">
-        <div class="d-day-child-container">
-            <span id="days">0</span>
-            <span>일</span>
-        </div>
-        <div class="d-day-child-container">
-            <div>
-                <span id="hours">0</span>
-                <span>시간</span>
+        <h1>D-Day</h1>
+        <div id="d-day-container">
+            <div class="d-day-child-container">
+                <span id="days">0</span>
+                <span>일</span>
+            </div>
+            <div class="d-day-child-container">
+                <div>
+                    <span id="hours">0</span>
+                    <span>시간</span>
+                </div>
+            </div>
+            <div class="d-day-child-container">
+                <div>
+                    <span id="min">0</span>
+                    <span>분</span>
+                </div>
+            </div>
+            <div class="d-day-child-container">
+                <div>
+                    <span id="sec">0</span>
+                    <span>초</span>
+                </div>
             </div>
         </div>
-        <div class="d-day-child-container">
-            <div>
-                <span id="min">0</span>
-                <span>분</span>
-            </div>
+        <div id="d-day-message"></div>
+        <div id="target-selector">
+            <input
+                class="target-input"
+                id="target-year-input"
+                type="text"
+                size="3"
+            />
+            -
+            <input
+                class="target-input"
+                id="target-month-input"
+                type="text"
+                size="3"
+            />
+            -
+            <input
+                class="target-input"
+                id="target-day-input"
+                type="text"
+                size="3"
+            />
         </div>
-        <div class="d-day-child-container">
-            <div>
-                <span id="sec">0</span>
-                <span>초</span>
-            </div>
-        </div>
-    </div>
-    </div>
-    <div id="target-selector">
-        <input class="target-input" id="target-year-input" type="text" size="3" /> -
-        <input class="target-input" id="target-month-input" type="text" size="3" /> -
-        <input class="target-input" id="target-day-input" type="text" size="3" />
-    </div>
-    <button id="start-btn" onclick="counterMaker()">카운트다운 시작</button>
-    <!-- onclick는 버튼이 아니라도, 사용할 수 있으나, 버튼이 일반적이다. -->
-</body>
-
+        <button id="start-btn" onclick="starter()">카운트다운 시작</button>
+        <!-- onclick는 버튼이 아니라도, 사용할 수 있으나, 버튼이 일반적이다. -->
+    </body>
 </html>
