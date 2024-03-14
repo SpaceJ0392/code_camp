@@ -10,6 +10,9 @@ const messageContainer = document.querySelector("#d-day-message");
 messageContainer.innerHTML = "<h3>D-Day를 입력해주세요.</h3>";
 
 document.querySelector("#d-day-container").style.visibility = "hidden"; //css도 접근 가능
+const intervalIdArr = [];
+
+const savedDate = localStorage.getItem("saved-date");
 
 /** 함수 **/
 const output = function () {
@@ -33,9 +36,9 @@ const dateFormMaker = function () {
 
 /** 날짜 객체 Date **/
 //js 에는 날짜 데이터를 형식에 맞추어 돌려주는 Date 객체가 존재한다.
-const counterMaker = () => {
+const counterMaker = (data) => {
     const nowDay = new Date(); //지역 표준시 기준 반환 (오전 9시 기준)
-    const targetDay = new Date(dateFormMaker()).setHours(0, 0, 0, 0); // 자정 기준으로 변환
+    const targetDay = new Date(data).setHours(0, 0, 0, 0); // 자정 기준으로 변환
     const remaining = (targetDay - nowDay) / 1000; //밀리초 단위로 반환해서 1000으로 나눔
 
     /** 조건문 **/
@@ -44,12 +47,22 @@ const counterMaker = () => {
         document.querySelector("#d-day-container").style.visibility = "hidden";
         messageContainer.style.visibility = "visible";
         messageContainer.innerHTML = "<h3>타이머가 종료되었습니다.</h3>";
+        document.getElementById("start-btn").textContent = "카운트다운 시작";
+        document
+            .getElementById("start-btn")
+            .setAttribute("onClick", "starter();");
+        setClearInterval();
         return;
     } else if (isNaN(remaining)) {
         //잘못된 날짜는 유효한 시간대가 아닙니다.
         document.querySelector("#d-day-container").style.visibility = "hidden";
         messageContainer.style.visibility = "visible";
         messageContainer.innerHTML = "<h3>유효한 시간대가 아닙니다.</h3>";
+        document.getElementById("start-btn").textContent = "카운트다운 시작";
+        document
+            .getElementById("start-btn")
+            .setAttribute("onClick", "starter();");
+        setClearInterval();
         return;
     }
 
@@ -88,11 +101,21 @@ const counterMaker = () => {
     //     i++; // i = i + 1
     // }
 
+    const format = function (time) {
+        if (time < 10) {
+            return "0" + time;
+        } else {
+            return time;
+        }
+    };
+
     //혹은 (for - of문 : 배열에 사용)
     let i = 0;
     for (let tag of documentArr) {
-        document.getElementById(tag).textContent =
-            remainingObj[Object.keys(remainingObj)[i]];
+        const remainingTime = format(
+            remainingObj[Object.keys(remainingObj)[i]]
+        );
+        document.getElementById(tag).textContent = remainingTime;
         i++;
     }
 
@@ -102,8 +125,51 @@ const counterMaker = () => {
     // documentObj["sec"].textContent = remainingObj.remainingSec;
 };
 
-const starter = () => {
+const starter = (targetDateInput) => {
+    setClearInterval();
+
     document.querySelector("#d-day-container").style.visibility = "visible";
     messageContainer.style.visibility = "hidden";
-    counterMaker();
+    // for (let i = 0; i < 100; i++) {
+    //     setTimeout(() => {
+    //         //setTimeout : 함수 실행 지연
+    //         counterMaker();
+    //     }, 1000 * i); //ms 단위
+    // } // 한계 명확
+
+    if (!targetDateInput) {
+        targetDateInput = dateFormMaker();
+    }
+
+    localStorage.setItem("saved-date", targetDateInput);
+    counterMaker(targetDateInput);
+    intervalIdArr.push(setInterval(() => counterMaker(targetDateInput), 1000)); // return 으로 interval 객체의 ID 반환
+
+    if (messageContainer.style.visibility !== "visible") {
+        //버튼 단일화
+        document.getElementById("start-btn").textContent = "타이머 종료";
+        document
+            .getElementById("start-btn")
+            .setAttribute("onClick", "resetTimer();");
+    }
 };
+
+const setClearInterval = function () {
+    localStorage.removeItem("saved-date");
+    for (const i of intervalIdArr) {
+        clearInterval(i);
+    }
+};
+
+const resetTimer = function () {
+    document.getElementById("start-btn").textContent = "카운트다운 시작";
+    messageContainer.style.visibility = "visible";
+    messageContainer.innerHTML = "<h3>D-Day를 입력해주세요.</h3>";
+    document.querySelector("#d-day-container").style.visibility = "hidden";
+    document.getElementById("start-btn").setAttribute("onClick", "starter();");
+    setClearInterval();
+};
+
+if (savedDate) {
+    starter(savedDate);
+}
