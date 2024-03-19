@@ -57,3 +57,14 @@ li button:active {
     /* 버튼 눌리면 반응 */
     border: 2px solid grey;
 }
+
+.delete-btn-wrapper {
+    margin-top: 1rem;
+}
+
+.delete-btn-wrapper button {
+    font-weight: bold;
+    background-color: antiquewhite;
+    padding: 0.2rem 1rem;
+    cursor: pointer;
+}
