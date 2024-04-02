@@ -1,5 +1,6 @@
 const todoInput = document.querySelector("#Todo-input");
 const savedTodoList = JSON.parse(localStorage.getItem("data"));
+const savedWeatherData = JSON.parse(localStorage.getItem("saved-weather"));
 
 const createTodo = function (storegeData) {
     let todoContents = todoInput.value;
@@ -45,7 +46,7 @@ const createTodo = function (storegeData) {
 const keyCodeCheck = function () {
     /** JS로 키보드 이벤트 받기 */
     window.onkeydown = (event) => {
-        if (event.keyCode === 13 && todoInput.value !== "") {
+        if (event.keyCode === 13 && todoInput.value.trim() !== "") {
             createTodo();
             todoInput.value = ""; //입력 초기화
         }
@@ -61,7 +62,6 @@ const deleteAll = function () {
         li.remove(); //전체 삭제
     }
     saveItemsFn();
-    localStorage.removeItem("data");
 };
 
 const saveItemsFn = function () {
@@ -87,18 +87,15 @@ const saveItemsFn = function () {
     // }
 };
 
-if (savedTodoList) {
-    for (const item of savedTodoList) {
-        createTodo(item);
-    }
-}
-
 /** geolocation **/
-const accessToGeo = function (position) {
+const accessToGeo = function ({ coords }) {
+    /** 구조 분해 할당 */
+    const { latitude, longitude } = coords;
+
     const positionObj = {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-    };
+        latitude,
+        longitude,
+    }; // 키와 값이 같으면 생략 가능 -- shorthead property
 
     weatherSearch(positionObj);
 };
@@ -109,15 +106,46 @@ const askeForLocation = function () {
     });
 };
 
-askeForLocation();
+/**JSON 데이터 활용 */
+const weatherDataActive = function ({ location, weather }) {
+    const weatherMainList = [
+        "Clear",
+        "Clouds",
+        "Drizzle",
+        "Rain",
+        "Snow",
+        "Thunderstorm",
+    ];
+    weather = weatherMainList.includes(weather) ? weather : "Fog";
+    const locationNameTag = document.querySelector("#location-name-tag");
+    locationNameTag.textContent = location;
+    document.body.style.backgroundImage = `url('./images/${weather}.jpg')`;
+
+    if (
+        !savedWeatherData ||
+        savedWeatherData.location !== location ||
+        savedWeatherData.weather !== weather
+    ) {
+        localStorage.setItem(
+            "saved-weather",
+            JSON.stringify({ location, weather })
+        );
+    }
+};
 
 /** openweatherMap API */
-const weatherSearch = function (position) {
+const weatherSearch = function ({ latitude, longitude }) {
     const APIkey = ""; //TODO - commit 시 삭제
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.latitude}&lon=${position.longitude}&appid=${APIkey}`;
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIkey}`;
     fetch(url)
         .then((res) => res.json()) //JSON.parse()는 응답 바디만 존재할 때 사용 가능 (header 있으면 사용 불가)
-        .then((json) => console.log(json.name, json.weather[0].description))
+        .then((json) => {
+            const weatherData = {
+                location: json.name,
+                weather: json.weather[0].main,
+            };
+            weatherDataActive(weatherData);
+        })
         .catch((err) => console.error(err)); //then에서 error가 발생하면 catch로 넘어감
 };
 
@@ -137,3 +165,15 @@ const promiseTest = function () {
 // promiseTest().then((res) => {
 //     console.log(res);
 // });
+
+if (savedTodoList) {
+    for (const item of savedTodoList) {
+        createTodo(item);
+    }
+}
+
+askeForLocation();
+
+if (savedWeatherData) {
+    weatherDataActive(savedWeatherData);
+}
